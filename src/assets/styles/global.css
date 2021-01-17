@@ -1,13 +1,23 @@
 :root {
+    font-size: 60%;
     --color-background: #F0F0F7;
+    --color-primary-lighter: #9871F5;
+    --color-primary-light: #916BEA;
+    --color-primary: #8257E5;
+    --color-primary-dark: #774DD6;
+    --color-primary-darker: #6842C2;
+    --color-secundary: #04D361;
+    --color-secundary-dark: #04BF58;
+    --color-title-in-primary: #FFFFFF;
+    --color-text-in-primary: #D4C2FF;
     --color-text-title: #32264D;
     --color-text-complement: #9C98A6;
     --color-text-base: #6A6180;
-    --color-text-base-white: #fff;
-    --color-base-lightblack: #333;
-    --color-base-button: #68d34e;
-
-    font-size: 50%;
+    --color-line-in-white: #E6E6F0;
+    --color-input-background: #F8F8FC;
+    --color-button-text: #FFFFFF;
+    --color-box-base: #FFFFFF;
+    --color-box-footer: #FAFAFC;
 }
 
 * {
@@ -16,65 +26,37 @@
     box-sizing: border-box;
 }
 
-html, body, #root {
-    min-height: 100vh;
+html,
+body,
+#root {
+    height: 100vh;
 }
 
 body {
-    position: relative;
     background: var(--color-background);
-    width: 700px;
-    margin: 0 auto;
 }
 
 #root {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-body, input, textarea, button {
+body,
+input,
+button,
+textarea {
     font: 500 1.6rem Poppins;
     color: var(--color-text-base);
 }
 
 .container {
-    width: 100%;
-    border: 2px solid black;
-    border-radius: 2px;
+    width: 90vw;
+    max-width: 700px;
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-input {
-    padding: .3rem;
-}
-
-@media (max-width: 380px) {
-    :root {
-        font-size: 40%;
-    }
-}
-
-@media (max-width: 700px) {
-    body {
-        width: 98%;
-        margin: 0 auto;
-    }
-}
-
-@media (min-width: 500px) {
-    :root {
-        font-size: 60%;
+@media (min-width: 700px) {
+     :root {
+        font-size: 62.5%;
     }
 }
