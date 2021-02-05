@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { pokeApi } from '../../services/api';
 
 import './styles.css';
 
@@ -7,31 +8,25 @@ export interface Rating {
     id_origin: string;
     title: string;
     description: string;
-    starts: number;
+    stars: number;
 }
 
 
-interface RatingesItemProps {
+interface RatingsItemProps {
     rating: Rating;
 }
 
 
-const RatingItem: React.FC<RatingesItemProps> = ({ rating }) => {
-
-
-    const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
-
+const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
     const [pokemon, setPokemon] = useState({ name: "", sprites: { front_default: "" } });
 
     useEffect(() => {
-        fetch(baseUrl + rating.id_origin).then(response =>
-            response.json())
-            .then(data => {
-                setPokemon(data);
-            })
-            .catch(err => console.log(err));
-    }, []);
-    
+        pokeApi.get('/' + rating.id_origin).then(response => {
+            const pokemonData = response.data
+
+            setPokemon(pokemonData)
+        })
+    }, [rating.id_origin])
     console.log(pokemon);
 
     return (
@@ -50,9 +45,15 @@ const RatingItem: React.FC<RatingesItemProps> = ({ rating }) => {
 
             <footer>
                 <p>
-                    <strong></strong>
+                    <strong>Avaliação média:</strong>
+                    {
+                        Array.from({ length: rating.stars }, (x, i) => {
+                            return (
+                                <img className='rating-star' key={i} alt='star' src='https://pt.seaicons.com/wp-content/uploads/2015/07/star-icon1.png'/>
+                            )
+                        })
+                    }
                 </p>
-
             </footer>
         </article>
 

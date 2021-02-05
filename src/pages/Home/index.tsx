@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import {pokeApi} from '../../services/api';
 
 import RatingItem, { Rating } from '../../components/RatingItem';
 import './styles.css'
 
 const Home: React.FC = () => {
 
-    const [ratinges, setRatinges] = useState([]);
+    const [ratings, setRatings] = useState<Rating[]>([]);
 
     useEffect(() => {
-        api.get('rating', {}).then(response => {
+        async function setDataFromPokeApi() {
+            const pokes = await pokeApi.get('/', { params: {offset: 0, limit: 1}})
+            const organizedPokes = pokes.data.results.map((poke: any, index: number) => {
+                return {
+                    id: index,
+                    id_origin: poke.name,
+                    title: 'muito bom',
+                    description: 'esse pokemon é legal',
+                    stars: 5
+                }
+            })
+            setRatings(organizedPokes)
+        }
 
-            setRatinges(response.data);
-        });
+        setDataFromPokeApi()
     }, []);
 
 
 
     return (
-        <div id="page-rating-list" className="container">
-            <h1> Lista dos Pokemons já Votados</h1>
+        <div id="rating-list-page" className="container">
+            <h1>Lista de pokemons</h1>
             <main>
-                {ratinges.map((rating: Rating) => {
+                {ratings.map((rating: Rating) => {
                     return <RatingItem key={rating.id} rating={rating} />;
                 })}
             </main>
