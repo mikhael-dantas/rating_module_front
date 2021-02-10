@@ -12,7 +12,7 @@ const RatingList: React.FC = () => {
     const [totalPages, setTotalPages] = useState(1)
     const [offset, setOffset] = useState(0)
     const limit = 20
-    const currentPage = offset === 0 ? 1 : Math.ceil(offset/limit)
+    const currentPage = Math.ceil((offset+0.1)/limit)
     const setOffsetCallback = (page: number) => {setOffset(page*limit-limit)}
 
     async function setDataFromPokeApi(offset: number) {
