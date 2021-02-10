@@ -23,15 +23,3 @@ const Pagination: React.FC<PaginationProps> = ({pages, callback, currentPage}) =
 }
 
 export default Pagination;
-
-// export default function ReturnPaginationComponent(
-//     pages: number,
-//     callback: Function,
-//     currentPage: number
-// ) {
-//     const array = Array.from(Array(pages).keys())
-//     return array.map(page => {
-//         let truePage = page + 1
-//         return (<h2 key={truePage} onClick={() => callback(truePage)}>{truePage}</h2>)
-//     })
-// }
