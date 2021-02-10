@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Header from './components/Header';
 import PokeList from './pages/PokeList';
 import RatingList from './pages/RatingList';
+import Footer from './components/Footer';
 
 
 function Routes () {
@@ -17,6 +18,7 @@ function Routes () {
                 <Route path='/ratings' exact component={RatingList} />
                 <Route path='/form' exact component={Form} />
                 <Route path='/form/:id_origin' exact component={Form} />
+                <Footer/>
             </BrowserRouter>
         </>
     )
