@@ -3,6 +3,9 @@ import { AppColors } from "../../assets/styles/global";
 
 
 export const Container = styled.article`
+    a {
+        text-decoration: none;
+    }
     .rating-star {
         width: 4rem;
         height: 4rem;

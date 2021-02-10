@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 700px;
+
     .pagination {
         margin-top: 2rem;
         display: flex;
