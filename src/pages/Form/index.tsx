@@ -1,90 +1,107 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import './styles.css'
+import React, { useState, useEffect } from 'react';
+import { pokeApi } from '../../services/api';
+import {Container} from './styles'
 
-// define o formato da deficiência
-interface Defi {
-        id: string,
-        nome: string,
-        acima_de_60: string,
-        de_18_a_60: string,
-        de_0_a_18: string
-    }
+const Form: React.FC<any> = ({match}) => {
+    const [idOrigin, setIdOrigin] = useState<string>(match.params.id_origin ? match.params.id_origin : '')
+    const [title, setTitle] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [stars, setStars] = useState<number>(0)
 
-
-const Form: React.FC = () => {
-
-    // state das deficiências
-    const [defis, setDefis] = useState<Defi[]>([])
-
-    // função usada pra dar update no lugar certo do state, pegando do input
-    function newState(id:string, campo: number, value: string) {
-        return defis.map(deficiencia => {
-            if (deficiencia.id === id) {
-                switch (campo) {
-                    case 1:
-                        deficiencia.acima_de_60 = value
-                        break;
-                    case 2:
-                        deficiencia.de_18_a_60 = value
-                        break;
-                    case 3:
-                        deficiencia.de_0_a_18 = value
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return deficiencia
-        })
-    }
-
-
-
-    // nome da função diz tudo
-    function handleSubmit(e: FormEvent) {
+    async function handleSubmit(e: any) {
         e.preventDefault()
-        console.log(defis)
+        let error = 0
+        await pokeApi.get(`/${idOrigin}`).catch(() => {
+            alert('esse pokemon não existe')
+            error = 1
+        })
+        if (!error) {
+            console.log({
+                id_origin: idOrigin,
+                title: title,
+                description: description,
+                stars: stars
+            })
+        }
     }
 
 
     // pega a api e seta o state das deficiência que vieram
     useEffect(() => {
-        const api: any = [{ id: 'aklsdjkasj', nome: 'aush'}, { id: 'aklsdjkasja', nome: 'ausdh'}]
-
-        const temp: Defi[] = []
-        api.forEach((deficiencia: any) => {
-            deficiencia.acima_de_60 = ''
-            deficiencia.de_18_a_60 = ''
-            deficiencia.de_18_a_60 = ''
-
-            temp.push(deficiencia)
-        })
-        setDefis(temp)
     }, []);
 
 
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            {defis.map(deficiencia => {
-                return (
-                    <label key={deficiencia.id}> sou uma label
-                        <input type="text" 
-                            value={defis.find(statedefi => statedefi.id === deficiencia.id)?.acima_de_60}
-                            onChange={(e) => setDefis(newState(deficiencia.id, 1, e.target.value))}
-                        />
-                        <input type="text" 
-                            value={defis.find(statedefi => statedefi.id === deficiencia.id)?.de_18_a_60}
-                            onChange={(e) => setDefis(newState(deficiencia.id, 2, e.target.value))}
-                        />
-                        <input type="text" 
-                            value={defis.find(statedefi => statedefi.id === deficiencia.id)?.de_0_a_18}
-                            onChange={(e) => setDefis(newState(deficiencia.id, 3, e.target.value))}
-                        />
-                    </label>)
-            })}
-            <input type="submit" value="Enviar" />
-        </form>
+        <Container>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                Pokemon:
+                <input type="text" name='idOrigin' value={idOrigin} onChange={(e) => {setIdOrigin(e.target.value)}}/>
+                Opinião sobre o pokemon:
+                <input type="text" name='title' value={title} onChange={(e) => {setTitle(e.target.value)}}/>
+                Detalhes da avaliação:
+                <input type="text" name='description' value={description} onChange={(e) => {setDescription(e.target.value)}}/>
+                <div>
+                    Estrelas:
+                    <div className="radio">
+                        <label>
+                            <input
+                            type="radio"
+                            value={1}
+                            checked={stars === 1}
+                            onChange={(e) => {setStars(Number(e.target.value))}}
+                            />
+                            1
+                        </label>
+                    </div>
+                    <div className="radio">
+                        <label>
+                            <input
+                            type="radio"
+                            value={2}
+                            checked={stars === 2}
+                            onChange={(e) => {setStars(Number(e.target.value))}}
+                            />
+                            2
+                        </label>
+                    </div>
+                    <div className="radio">
+                        <label>
+                            <input
+                            type="radio"
+                            value={3}
+                            checked={stars === 3}
+                            onChange={(e) => {setStars(Number(e.target.value))}}
+                            />
+                            3
+                        </label>
+                    </div>
+                    <div className="radio">
+                        <label>
+                            <input
+                            type="radio"
+                            value={4}
+                            checked={stars === 4}
+                            onChange={(e) => {setStars(Number(e.target.value))}}
+                            />
+                            4
+                        </label>
+                    </div>
+                    <div className="radio">
+                        <label>
+                            <input
+                            type="radio"
+                            value={5}
+                            checked={stars === 5}
+                            onChange={(e) => {setStars(Number(e.target.value))}}
+                            />
+                            5
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" value="Enviar" />
+            </form>
+        </Container>
     );
 }
 

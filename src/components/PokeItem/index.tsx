@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { pokeApi } from '../../services/api';
 
 import { Container } from './styles';
@@ -6,9 +7,7 @@ import { Container } from './styles';
 export interface Rating {
     id: number;
     id_origin: string;
-    title: string;
-    description: string;
-    stars: number;
+    stars_avarage: number;
 }
 
 
@@ -16,8 +15,7 @@ interface RatingsItemProps {
     rating: Rating;
 }
 
-
-const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
+const PokeItem: React.FC<RatingsItemProps> = ({ rating }) => {
     const [pokemon, setPokemon] = useState({ name: "", sprites: { front_default: "" } });
 
     useEffect(() => {
@@ -36,17 +34,19 @@ const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
                     <img src={pokemon.sprites.front_default} alt={pokemon.name} />
                     <div>
                         <h2>{pokemon.name}</h2>
-                        <span>{rating.title}</span>
+                        {/* <span>{rating.title}</span> */}
                     </div>
                 </header>
 
-                <p>{rating.description}</p>
+                <p>
+                    <Link to={`form/${pokemon.name}`}>Avalie esse Pokemon</Link>
+                </p>
 
                 <footer>
                     <p>
-                        <strong>Avaliação dada:</strong>
+                        <strong>Avaliação média do Pokemon:</strong>
                         {
-                            Array.from({ length: rating.stars }, (x, i) => {
+                            Array.from({ length: rating.stars_avarage }, (x, i) => {
                                 return (
                                     <img className='rating-star' key={i} alt='star' src='https://pt.seaicons.com/wp-content/uploads/2015/07/star-icon1.png'/>
                                 )
@@ -61,4 +61,4 @@ const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
 }
 
 
-export default RatingItem;
+export default PokeItem;

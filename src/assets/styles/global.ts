@@ -17,7 +17,7 @@ export const AppColors = {
     line_white: "#E6E6F0",
     input_background: "#F8F8FC",
     button_text: "#FFFFFF",
-    bo_base: "#FFFFFF",
+    box_base: "#FFFFFF",
     box_footer: "#FAFAFC"
 }
 export default createGlobalStyle`
@@ -54,11 +54,6 @@ export default createGlobalStyle`
     textarea {
         font: 500 1.6rem Poppins;
         color: ${AppColors.text_base};
-    }
-
-    .container {
-        width: 90vw;
-        max-width: 700px;
     }
 
     @media (min-width: 700px) {
