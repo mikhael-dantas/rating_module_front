@@ -3,11 +3,17 @@ import {pokeApi} from '../../services/api';
 
 import { Container } from './styles'
 import PokeItem, {Rating} from '../../components/PokeItem';
+import Pagination from '../../components/Pagination';
 
 const PokeList: React.FC = () => {
 
     const [ratings, setRatings] = useState<Rating[]>([]);
+
     const [totalPages, setTotalPages] = useState(1)
+    const [offset, setOffset] = useState(0)
+    const limit = 20
+    const currentPage = offset === 0 ? 1 : Math.ceil(offset/limit)
+    const setOffsetCallback = (page: number) => {setOffset(page*limit-limit)}
 
     async function setDataFromPokeApi(offset: number) {
         const pokes = await pokeApi.get('/', { params: {offset: offset, limit: 1}})
@@ -23,17 +29,9 @@ const PokeList: React.FC = () => {
         setTotalPages(pages)
     }
 
-    function returnPagesComponent() {
-        const array = Array.from(Array(totalPages).keys())
-        return array.map(page => {
-            let truePage = page + 1
-            return (<h2 key={truePage} onClick={() => {setDataFromPokeApi(truePage*20-20)}}>{truePage}</h2>)
-        })
-    }
-
     useEffect(() => {
-        setDataFromPokeApi(0)
-    }, []);
+        setDataFromPokeApi(offset)
+    }, [offset]);
 
     return (
         <Container>
@@ -43,9 +41,7 @@ const PokeList: React.FC = () => {
                     return <PokeItem key={rating.id} rating={rating} />;
                 })}
             </main>
-            <div className="pagination">
-                {returnPagesComponent()}
-            </div>
+            <Pagination pages={totalPages} callback={setOffsetCallback} currentPage={currentPage}/>
         </Container>
     );
 }
