@@ -56,6 +56,7 @@ export const Container = styled.article`
         border-top: 1px solid ${AppColors.line_white};
         margin-top: 3.2rem;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: space-between;
     }

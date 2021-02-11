@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { pokeApi } from '../../services/api';
+import Stars from '../Stars';
 
 import { Container } from './styles';
 
@@ -45,14 +46,8 @@ const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
                 <footer>
                     <p>
                         <strong>Avaliação dada:</strong>
-                        {
-                            Array.from({ length: rating.stars }, (x, i) => {
-                                return (
-                                    <img className='rating-star' key={i} alt='star' src='https://pt.seaicons.com/wp-content/uploads/2015/07/star-icon1.png'/>
-                                )
-                            })
-                        }
                     </p>
+                        <Stars stars={rating.stars}/>
                 </footer>
             </article>
         </Container>
