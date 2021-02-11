@@ -35,7 +35,7 @@ export default createGlobalStyle`
     html,
     body,
     #root {
-        height: 100vh;
+        min-height: 100vh;
     }
 
     body {
@@ -54,6 +54,10 @@ export default createGlobalStyle`
     textarea {
         font: 500 1.6rem Poppins;
         color: ${AppColors.text_base};
+    }
+
+    .container {
+        min-height: 100vh;
     }
 
     @media (min-width: 700px) {

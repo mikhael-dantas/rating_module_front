@@ -33,7 +33,7 @@ const Form: React.FC<any> = ({match}) => {
 
 
     return (
-        <Container>
+        <Container className='container'>
             <h1>Enviar Avaliação</h1>
             <form className='poke-form' onSubmit={(e) => handleSubmit(e)}>
                 <label className='name'>

@@ -34,7 +34,7 @@ const PokeList: React.FC = () => {
     }, [offset]);
 
     return (
-        <Container>
+        <Container className='container'>
             <h1>Lista de pokemons</h1>
             <main>
                 {ratings.map((rating: Rating) => {

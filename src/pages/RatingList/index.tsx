@@ -40,7 +40,7 @@ const RatingList: React.FC = () => {
 
 
     return (
-        <Container>
+        <Container className='container'>
             <h1>Avaliações</h1>
             <main>
                 {ratings.map((rating: Rating) => {

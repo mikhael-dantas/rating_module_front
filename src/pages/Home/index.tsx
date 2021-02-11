@@ -4,7 +4,7 @@ import { Container } from './styles'
 
 const Home: React.FC = () => {
     return (
-        <Container>essa é a home</Container>
+        <Container className='container'>essa é a home</Container>
     );
 }
 
