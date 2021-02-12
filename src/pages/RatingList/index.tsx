@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {pokeApi} from '../../services/api';
 
 import { Container } from './styles'
 import RatingItem, {Rating} from '../../components/RatingItem';
 import Pagination from '../../components/Pagination';
 import { MockedRatings } from '../../Utils/MockedApi';
+import { api } from '../../services/api';
 
 const RatingList: React.FC = () => {
 
@@ -17,9 +17,26 @@ const RatingList: React.FC = () => {
     const setOffsetCallback = (page: number) => {setOffset(page*limit-limit)}
 
     async function setDataFromPokeApi(offset: number) {
-        // const apiRatings = await Api.get('/', { params: {offset: offset, limit: limit}})
-        setRatings(MockedRatings.results)
-        const pages = Math.floor(MockedRatings.count/20) 
+        let error = 0
+        const apiRatings = await api.get('/', { params: {offset: offset, limit: limit}}).catch(() => {
+            error = 1
+            console.log('error trying to get the main api. Getting mocked data instead')
+            return {data: {}}
+        })
+
+        let results: Rating[] = [] 
+        let count = 0
+
+        if (error) {
+            results = MockedRatings.results
+            count = MockedRatings.count
+        } else {
+            results = apiRatings.data.results
+            count = apiRatings.data.count
+        }
+
+        setRatings(results)
+        const pages = Math.floor(count/20) 
         setTotalPages(pages)
 
     }

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { pokeApi } from '../../services/api';
+import React from 'react';
 import Stars from '../Stars';
 
 import { Container } from './styles';
 
 export interface Rating {
     id: number;
-    id_origin: string;
+    name: string;
+    sprites: {
+        front_default: string
+    },
     title: string;
     description: string;
     stars: number;
@@ -19,24 +21,14 @@ interface RatingsItemProps {
 
 
 const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
-    const [pokemon, setPokemon] = useState({ name: "", sprites: { front_default: "" } });
-
-    useEffect(() => {
-        pokeApi.get('/' + rating.id_origin).then(response => {
-            const pokemonData = response.data
-
-            setPokemon(pokemonData)
-        })
-    }, [rating.id_origin])
-
     return (
         <Container>
 
             <article className="rating-item">
                 <header>
-                    <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+                    <img src={rating.sprites.front_default} alt={rating.name} />
                     <div>
-                        <h2>{pokemon.name}</h2>
+                        <h2>{rating.name}</h2>
                         <span>{rating.title}</span>
                     </div>
                 </header>

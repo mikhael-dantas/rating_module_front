@@ -10,14 +10,20 @@ export const MockedRatings: Response = {
     results: [
         {
             id: 1,
-            id_origin: 'bulbasaur',
+            name: 'bulbasaur',
+            sprites: {
+                front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
+            },
             title: 'bom',
             description: 'é bom memo',
             stars: 4.3,
         },
         {
             id: 2,
-            id_origin: 'pikachu',
+            name: 'pikachu',
+            sprites: {
+                front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
+            },
             title: 'muito bom',
             description: 'é bem legal',
             stars: 4.7,
