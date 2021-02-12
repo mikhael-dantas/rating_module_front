@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { pokeApi } from '../../services/api';
+import { api, pokeApi } from '../../services/api';
 import {Container} from './styles'
 
 const Form: React.FC<any> = ({match}) => {
@@ -16,12 +16,24 @@ const Form: React.FC<any> = ({match}) => {
             error = 1
         })
         if (!error) {
-            console.log({
+            const dataToPost = {
                 id_origin: idOrigin,
                 title: title,
                 description: description,
                 stars: stars
+            }
+            let error = 0
+
+            const apiPost = await api.post('/', dataToPost).catch((error) => {
+                error = 1
+                console.log('error trying to post in main api. Logging form instead')
+                console.log(dataToPost)
+                return {error}
             })
+
+            if (error) {
+                console.log(apiPost) 
+            }
         }
     }
 
