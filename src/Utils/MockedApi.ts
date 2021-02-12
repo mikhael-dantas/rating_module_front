@@ -2,12 +2,12 @@ import { Rating } from "../components/RatingItem";
 
 interface Response {
     count: number,
-    data: Rating[]
+    results: Rating[]
 }
 
 export const MockedRatings: Response = {
     count: 2,
-    data: [
+    results: [
         {
             id: 1,
             id_origin: 'bulbasaur',

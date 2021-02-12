@@ -18,7 +18,7 @@ const RatingList: React.FC = () => {
 
     async function setDataFromPokeApi(offset: number) {
         // const apiRatings = await Api.get('/', { params: {offset: offset, limit: limit}})
-        setRatings(MockedRatings.data)
+        setRatings(MockedRatings.results)
         const pages = Math.floor(MockedRatings.count/20) 
         setTotalPages(pages)
 
