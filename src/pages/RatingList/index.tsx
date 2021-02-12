@@ -4,6 +4,7 @@ import {pokeApi} from '../../services/api';
 import { Container } from './styles'
 import RatingItem, {Rating} from '../../components/RatingItem';
 import Pagination from '../../components/Pagination';
+import { MockedRatings } from '../../Utils/MockedApi';
 
 const RatingList: React.FC = () => {
 
@@ -16,18 +17,9 @@ const RatingList: React.FC = () => {
     const setOffsetCallback = (page: number) => {setOffset(page*limit-limit)}
 
     async function setDataFromPokeApi(offset: number) {
-        const pokes = await pokeApi.get('/', { params: {offset: offset, limit: 1}})
-        const organizedPokes = pokes.data.results.map((poke: any, index: number) => {
-            return {
-                id: index,
-                id_origin: poke.name,
-                title: 'muito bom',
-                description: 'esse pokemon é legal',
-                stars: 5
-            }
-        })
-        setRatings(organizedPokes)
-        const pages = Math.floor(pokes.data.count/20) 
+        // const apiRatings = await Api.get('/', { params: {offset: offset, limit: limit}})
+        setRatings(MockedRatings.data)
+        const pages = Math.floor(MockedRatings.count/20) 
         setTotalPages(pages)
 
     }

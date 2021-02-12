@@ -21,7 +21,7 @@ const PokeList: React.FC = () => {
             return {
                 id: index,
                 id_origin: poke.name,
-                stars_avarage: 5
+                stars_avarage: 4.7
             }
         })
         setRatings(organizedPokes)
