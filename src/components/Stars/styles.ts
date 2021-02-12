@@ -10,7 +10,7 @@ export const Container = styled.div`
     }
     .stars-quantity {
         position: absolute;
-        background: yellow;
+        background-color: #ffdd40;
         top: 1px;
         left: 1px;
         bottom: 1px;
