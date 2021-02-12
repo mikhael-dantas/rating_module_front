@@ -21,7 +21,7 @@ const PokeList: React.FC = () => {
             let organizedPokeList: any[] = []
     
             let apiPokeList = await api.get('/pokemons', { params: {offset: offsetArg, limit: 1}}).catch(() => {
-                console.log('error trying to catch the main api. Getting data from pokeapi instead')
+                console.log('error trying to get the main api. Getting data from pokeapi instead')
                 error = 1
                 return {data: {}}
             })
