@@ -3,7 +3,7 @@ import { api, pokeApi } from '../../services/api';
 import {Container} from './styles'
 
 const Form: React.FC<any> = ({match}) => {
-    const [idOrigin, setIdOrigin] = useState<string>(match.params.id_origin ? match.params.id_origin : '')
+    const [name, setname] = useState<string>(match.params.name ? match.params.name : '')
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [stars, setStars] = useState<number>(0)
@@ -11,20 +11,20 @@ const Form: React.FC<any> = ({match}) => {
     async function handleSubmit(e: any) {
         e.preventDefault()
         let error = 0
-        await pokeApi.get(`/${idOrigin}`).catch(() => {
+        await pokeApi.get(`/${name}`).catch(() => {
             alert('esse pokemon não existe')
             error = 1
         })
         if (!error) {
             const dataToPost = {
-                id_origin: idOrigin,
+                name: name,
                 title: title,
                 description: description,
                 stars: stars
             }
             let error = 0
 
-            const apiPost = await api.post('/', dataToPost).catch((error) => {
+            const apiPost = await api.post('/ratings', dataToPost).catch((error) => {
                 error = 1
                 console.log('error trying to post in main api. Logging form instead')
                 console.log(dataToPost)
@@ -50,7 +50,7 @@ const Form: React.FC<any> = ({match}) => {
             <form className='poke-form' onSubmit={(e) => handleSubmit(e)}>
                 <label className='name'>
                     Pokemon:<br/>
-                    <input type="text" name='idOrigin' value={idOrigin} onChange={(e) => {setIdOrigin(e.target.value)}}/>
+                    <input type="text" name='name' value={name} onChange={(e) => {setname(e.target.value)}}/>
                 </label>
                 <label className='title'>
                     Opinião sobre o pokemon:<br/>

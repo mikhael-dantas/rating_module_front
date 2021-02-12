@@ -17,7 +17,7 @@ function Routes () {
                 <Route path='/pokelist' exact component={PokeList} />
                 <Route path='/ratings' exact component={RatingList} />
                 <Route path='/form' exact component={Form} />
-                <Route path='/form/:id_origin' exact component={Form} />
+                <Route path='/form/:name' exact component={Form} />
                 <Footer/>
             </BrowserRouter>
         </>

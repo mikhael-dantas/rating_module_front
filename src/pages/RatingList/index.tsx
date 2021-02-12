@@ -18,7 +18,7 @@ const RatingList: React.FC = () => {
 
     async function setDataFromPokeApi(offset: number) {
         let error = 0
-        const apiRatings = await api.get('/', { params: {offset: offset, limit: limit}}).catch(() => {
+        const apiRatings = await api.get('/ratings', { params: {offset: offset, limit: limit}}).catch(() => {
             error = 1
             console.log('error trying to get the main api. Getting mocked data instead')
             return {data: {}}
