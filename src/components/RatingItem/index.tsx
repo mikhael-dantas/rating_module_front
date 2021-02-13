@@ -43,7 +43,6 @@ const RatingItem: React.FC<RatingsItemProps> = ({ rating }) => {
                 </footer>
             </article>
         </Container>
-
     );
 }
 
