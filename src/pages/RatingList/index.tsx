@@ -24,6 +24,8 @@ const RatingList: React.FC = () => {
             return {data: {}}
         })
 
+        console.log(apiRatings);
+
         let results: Rating[] = [] 
         let count = 0
 
@@ -31,8 +33,7 @@ const RatingList: React.FC = () => {
             results = MockedRatings.results
             count = MockedRatings.count
         } else {
-            results = apiRatings.data.results
-            count = apiRatings.data.count
+            results = apiRatings.data
         }
 
         setRatings(results)

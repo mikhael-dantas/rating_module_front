@@ -21,7 +21,7 @@ const Form: React.FC<any> = ({ match }) => {
             stars: stars
         }
 
-        let apiPost = await api.post('/rating', dataToPost).catch(() => {
+        let apiPost = await api.post('/ratings', dataToPost).catch(() => {
             console.log('error trying to post in main api. Logging form instead')
             console.log(dataToPost)
             return { data: {}, status: Number }
