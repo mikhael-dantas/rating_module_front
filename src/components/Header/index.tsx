@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 import { AiFillHome } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { BsFillGearFill } from 'react-icons/bs'
+// import { BsFillGearFill } from 'react-icons/bs'
 
 const Header: React.FC = () => {
     const [visible, setVisible] = useState<boolean>(false)

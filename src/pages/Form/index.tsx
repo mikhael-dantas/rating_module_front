@@ -4,7 +4,6 @@ import { Container } from './styles';
 
 const Form: React.FC<any> = ({ match }) => {
     const [list, setList] = useState<any[]>([]);
-    const [offset, setOffset] = useState(0)
     const [id_origin, setId_origin] = useState<string>('')
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
@@ -33,16 +32,16 @@ const Form: React.FC<any> = ({ match }) => {
 
 
     useEffect(() => {
-        async function setDataFromApi(offsetArg: number) {
+        async function setDataFromApi() {
 
-            let apiPokeList = await pokeApi.get('/', { params: { offset: offsetArg, limit: 1118 } }).catch(() => {
+            let apiPokeList = await pokeApi.get('/', { params: { limit: 1118 } }).catch(() => {
                 return { data: {} }
             })
 
             setList(apiPokeList.data.results);
         }
-        setDataFromApi(offset)
-    }, [offset]);
+        setDataFromApi()
+    }, []);
 
     return (
         <Container className='container'>
