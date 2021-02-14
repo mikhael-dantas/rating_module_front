@@ -21,10 +21,6 @@ const Header: React.FC = () => {
                 <div style={{cursor: 'pointer'}} onClick={changeVisibility} className='button'>
                     <GiHamburgerMenu color='white' size='3rem'/>
                 </div>
-
-                <Link to='/' className='button'>
-                    <AiFillHome color='white' size='3rem'/>
-                </Link>
             </div>
 
             <div className='tittle-container'>
@@ -32,11 +28,11 @@ const Header: React.FC = () => {
             </div>
 
             <div className='config-buttons'>
-                <Link to='/config' className='config-button'>
-                    <BsFillGearFill color='white' size='3rem'/>
+                <Link to='/' className='button'>
+                    <AiFillHome color='white' size='3rem' />
                 </Link>
             </div>
-
+            
             <FloatingMenu changeVisibilityFunc={changeVisibility} visible={visible}/>
         </Container>
     )

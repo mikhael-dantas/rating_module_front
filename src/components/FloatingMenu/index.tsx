@@ -16,7 +16,7 @@ const FloatingMenu: React.FC<{
                 <Link to='/pokelist' className='menu-card'>Lista de Pokemons</Link>
                 <Link to='/ratings' className='menu-card'>Lista de Avaliações</Link>
                 <Link to='/form' className='menu-card'>Avalie um Pokemon</Link>
-                <Link to='/config' className='menu-card'>Configurações</Link>
+                {/* <Link to='/config' className='menu-card'>Configurações</Link> */}
             </div>
 
         </Container>
