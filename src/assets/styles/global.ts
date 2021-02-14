@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export const AppColors = {
     background: "#F0F0F7",
@@ -18,8 +18,12 @@ export const AppColors = {
     input_background: "#F8F8FC",
     button_text: "#FFFFFF",
     box_base: "#FFFFFF",
-    box_footer: "#FAFAFC"
+    box_footer: "#FAFAFC",
+    footer: "#bda8ed",
+    input: "#333",
+    star: "#ffff00"
 }
+
 export default createGlobalStyle`
 
     :root {
@@ -29,6 +33,7 @@ export default createGlobalStyle`
     * {
         margin: 0;
         padding: 0;
+        outline: 0;
         box-sizing: border-box;
     }
 
@@ -36,10 +41,22 @@ export default createGlobalStyle`
     body,
     #root {
         min-height: 100vh;
+        position: relative;
+    }
+
+    
+    .container {
+        /** Altura do rodapé tem que ser igual a isso aqui e vice-versa **/
+        padding-bottom: 10vh;
     }
 
     body {
+        margin: 0;
+        padding: 0;
         background: ${AppColors.background};
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
     }
 
     #root {
@@ -56,9 +73,20 @@ export default createGlobalStyle`
         color: ${AppColors.text_base};
     }
 
-    .container {
-        min-height: 100vh;
+    /** Formulários **/
+    button {
+        cursor: pointer;
     }
+
+    .button:hover {
+        filter: brightness(75%);
+    }
+
+
+
+
+
+    /** Páginas menores **/
 
     @media (min-width: 700px) {
         :root {

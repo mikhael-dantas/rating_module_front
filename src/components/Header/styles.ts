@@ -3,7 +3,7 @@ import { AppColors } from "../../assets/styles/global";
 
 export const Container = styled.header`
     width: 100%;
-    height: 4.5rem;
+    height: 6.5rem;
     background: ${AppColors.primary};
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -27,7 +27,7 @@ export const Container = styled.header`
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: 4rem;
         font-weight: bold;
     }
     .config-buttons {
