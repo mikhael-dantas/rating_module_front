@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { api, pokeApi } from '../../services/api';
 import { Container } from './styles';
 
-
-
-
 const Form: React.FC<any> = ({ match }) => {
     const [list, setList] = useState<any[]>([]);
     const [offset, setOffset] = useState(0)
-    const [id_origin, setId_origin] = useState<number>(0)
+    const [id_origin, setId_origin] = useState<string>('')
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [stars, setStars] = useState<number>(0)
@@ -32,26 +29,17 @@ const Form: React.FC<any> = ({ match }) => {
 
         if (apiPost)
             alert(apiPost.data.message)
-
-
     }
 
 
     useEffect(() => {
         async function setDataFromApi(offsetArg: number) {
-            let organizedPokeList: any[] = []
 
-            let apiPokeList = await pokeApi.get('/', { params: { offset: offsetArg, limit: 100 } }).catch(() => {
-                alert('esse pokemon não existe')
+            let apiPokeList = await pokeApi.get('/', { params: { offset: offsetArg, limit: 1118 } }).catch(() => {
                 return { data: {} }
             })
 
-            organizedPokeList = await Promise.all(apiPokeList.data.results.map(async (poke: any) => {
-                const response = await pokeApi.get('/' + poke.name)
-                return response.data
-            }))
-
-            setList(organizedPokeList)
+            setList(apiPokeList.data.results);
         }
         setDataFromApi(offset)
     }, [offset]);
@@ -69,10 +57,11 @@ const Form: React.FC<any> = ({ match }) => {
                     <select
                         placeholder="Selecione o Pokemo"
                         name="id_origin"
-                        onChange={(e) => { setId_origin(Number(e.target.value)) }}
+                        value={id_origin}
+                        onChange={(e) => { setId_origin(e.target.value) }}
                     >
                         {list.map(poke => (
-                            <option key={poke.id} value={poke.id}>{poke.name}</option>
+                            <option key={poke.name} value={poke.name}>{poke.name}</option>
                         ))}
                     </select>
 
@@ -94,68 +83,7 @@ const Form: React.FC<any> = ({ match }) => {
                         <label htmlFor="cm_star-5"><i className="fa"></i></label>
                         <input type="radio" id="cm_star-5" name="fb" value="5" onChange={(e) => { setStars(Number(e.target.value)) }} />
                     </div>
-                    {/* <label className='stars'>
-                        <div>
-                            Estrelas:<br/>
-                            <div className="radio">
-                                <label>
-                                    <input
-                                    type="radio"
-                                    value={1}
-                                    checked={stars === 1}
-                                    onChange={(e) => {setStars(Number(e.target.value))}}
-                                    />
-                                    1
-                                </label>
-                            </div>
-                            <div className="radio">
-                                <label>
-                                    <input
-                                    type="radio"
-                                    value={2}
-                                    checked={stars === 2}
-                                    onChange={(e) => {setStars(Number(e.target.value))}}
-                                    />
-                                    2
-                                </label>
-                            </div>
-                            <div className="radio">
-                                <label>
-                                    <input
-                                    type="radio"
-                                    value={3}
-                                    checked={stars === 3}
-                                    onChange={(e) => {setStars(Number(e.target.value))}}
-                                    />
-                                    3
-                                </label>
-                            </div>
-                            <div className="radio">
-                                <label>
-                                    <input
-                                    type="radio"
-                                    value={4}
-                                    checked={stars === 4}
-                                    onChange={(e) => {setStars(Number(e.target.value))}}
-                                    />
-                                    4
-                                </label>
-                            </div>
-                            <div className="radio">
-                                <label>
-                                    <input
-                                    type="radio"
-                                    value={5}
-                                    checked={stars === 5}
-                                    onChange={(e) => {setStars(Number(e.target.value))}}
-                                    />
-                                    5
-                                </label>
-                            </div> 
-                        </div>
-                    </label>*/}
-
-
+    
                     <button className="button" type="submit">
                         Cadastrar
                     </button>
