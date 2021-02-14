@@ -60,7 +60,7 @@ export const Container = styled.div`
     form input {
       width: 100%;
       height: 60px;
-      color: #333;
+      color: ${AppColors.input};
       border: 1px solid ${AppColors.line_white};
       border-radius: 8px;
       padding: 0 24px;
@@ -69,7 +69,7 @@ export const Container = styled.div`
     form select {
       width: 100%;
       height: 60px;
-      color: #333;
+      color: ${AppColors.input};
       border: 1px solid ${AppColors.line_white};
       border-radius: 8px;
       padding: 0 24px;
@@ -79,7 +79,7 @@ export const Container = styled.div`
       width: 100%;
       resize: vertical;
       min-height: 140px;
-      color: #333;
+      color: ${AppColors.input};
       border: 1px solid ${AppColors.line_white};
       border-radius: 8px;
       padding: 16px 24px;
@@ -103,5 +103,16 @@ export const Container = styled.div`
       transition: filter 0.2s;
     }
 
+    /** Estrelas **/
+    .estrelas input[type=radio] {
+      display: none;
+    }
+    .estrelas label i.fa:before {
+      content:'\f005';
+      color: ${AppColors.star};
+    }
+    .estrelas input[type=radio]:checked ~ label i.fa:before {
+      color: ${AppColors.input};
+    }
 
 `

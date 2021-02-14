@@ -19,7 +19,9 @@ export const AppColors = {
     button_text: "#FFFFFF",
     box_base: "#FFFFFF",
     box_footer: "#FAFAFC",
-    footer: "#bda8ed"
+    footer: "#bda8ed",
+    input: "#333",
+    star: "#ffff00"
 }
 
 export default createGlobalStyle`

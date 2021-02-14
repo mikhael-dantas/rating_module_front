@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Component, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { api, pokeApi } from '../../services/api';
 import { Container } from './styles';
-import Select from 'react-select';
+
 
 
 
@@ -30,22 +30,19 @@ const Form: React.FC<any> = ({ match }) => {
             return { data: {}, status: Number }
         })
 
-        // console.log(apiPost.status, apiPost.data)
-        // if (apiPost.status == 201) {
-        //     <Alert message={apiPost.data.message} type="success" />
-        // }
+        if (apiPost)
+            alert(apiPost.data.message)
+
 
     }
 
 
     useEffect(() => {
         async function setDataFromApi(offsetArg: number) {
-            let error = 0
             let organizedPokeList: any[] = []
 
             let apiPokeList = await pokeApi.get('/', { params: { offset: offsetArg, limit: 100 } }).catch(() => {
                 alert('esse pokemon não existe')
-                error = 1
                 return { data: {} }
             })
 
@@ -54,7 +51,6 @@ const Form: React.FC<any> = ({ match }) => {
                 return response.data
             }))
 
-            console.log(organizedPokeList);
             setList(organizedPokeList)
         }
         setDataFromApi(offset)
@@ -71,7 +67,6 @@ const Form: React.FC<any> = ({ match }) => {
                 <form className='poke-form' onSubmit={(e) => handleSubmit(e)}>
 
                     <select
-                        className="basic-single"
                         placeholder="Selecione o Pokemo"
                         name="id_origin"
                         onChange={(e) => { setId_origin(Number(e.target.value)) }}
@@ -81,10 +76,24 @@ const Form: React.FC<any> = ({ match }) => {
                         ))}
                     </select>
 
-                    <input type="text" placeholder="Título da Avaliação" name='title' value={title} onChange={(e) => { setTitle(e.target.value) }} />
-                    <textarea rows={4} placeholder="Detalhes da avaliação" name='description' value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                    <input type="text" placeholder="Título da Avaliação" name='title' value={title} onChange={(e) => { setTitle(e.target.value) }} required />
+                    <textarea rows={4} placeholder="Detalhes da avaliação" name='description' value={description} onChange={(e) => { setDescription(e.target.value) }} required />
 
 
+                    <div className="estrelas">
+                        <>Avalie o Pokemon: </>
+                        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+                        <label htmlFor="cm_star-1"><i className="fa"></i></label>
+                        <input type="radio" id="cm_star-1" name="fb" value="1" onChange={(e) => { setStars(Number(e.target.value)) }} />
+                        <label htmlFor="cm_star-2"><i className="fa"></i></label>
+                        <input type="radio" id="cm_star-2" name="fb" value="2" onChange={(e) => { setStars(Number(e.target.value)) }} />
+                        <label htmlFor="cm_star-3"><i className="fa"></i></label>
+                        <input type="radio" id="cm_star-3" name="fb" value="3" onChange={(e) => { setStars(Number(e.target.value)) }} />
+                        <label htmlFor="cm_star-4"><i className="fa"></i></label>
+                        <input type="radio" id="cm_star-4" name="fb" value="4" onChange={(e) => { setStars(Number(e.target.value)) }} />
+                        <label htmlFor="cm_star-5"><i className="fa"></i></label>
+                        <input type="radio" id="cm_star-5" name="fb" value="5" onChange={(e) => { setStars(Number(e.target.value)) }} />
+                    </div>
                     {/* <label className='stars'>
                         <div>
                             Estrelas:<br/>
