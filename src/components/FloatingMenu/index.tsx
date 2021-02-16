@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Container } from './styles';
 
 
@@ -13,9 +13,9 @@ const FloatingMenu: React.FC<{
             style={{display: visible ? 'initial' : 'none'}}
         >
             <div className='menu'>
-                <Link to='/pokelist' className='menu-card'>Lista de Pokemons</Link>
-                <Link to='/ratings' className='menu-card'>Lista de Avaliações</Link>
-                <Link to='/form' className='menu-card'>Avalie um Pokemon</Link>
+                <Link href='/pokemons'><a className='menu-card'>Lista de Pokemons</a></Link>
+                <Link href='/ratings'><a className='menu-card'>Lista de Avaliações</a></Link>
+                <Link href='/form'><a className='menu-card'>Avalie um Pokemon</a></Link>
                 {/* <Link to='/config' className='menu-card'>Configurações</Link> */}
             </div>
 

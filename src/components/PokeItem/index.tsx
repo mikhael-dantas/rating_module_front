@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Stars from '../Stars';
 
 import { Container } from './styles';
@@ -22,7 +22,7 @@ const PokeItem: React.FC<PokeItemProps> = ({ listedPoke: pokemon }) => {
                 </header>
 
                 <p>
-                    <Link to={`form/${pokemon.name}`}>Avalie esse Pokemon</Link>
+                    {/* <Link to={`form/${pokemon.name}`}>Avalie esse Pokemon</Link> */}
                 </p>
 
                 <footer>

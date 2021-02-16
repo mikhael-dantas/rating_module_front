@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link'
 import FloatingMenu from '../FloatingMenu';
 
 import { Container } from './styles';
@@ -28,8 +28,10 @@ const Header: React.FC = () => {
             </div>
 
             <div className='config-buttons'>
-                <Link to='/' className='button'>
-                    <AiFillHome color='white' size='3rem' />
+                <Link href='/'>
+                    <a className='button'>
+                        <AiFillHome color='white' size='3rem' />
+                    </a>
                 </Link>
             </div>
             

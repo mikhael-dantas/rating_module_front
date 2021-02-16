@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api, pokeApi } from '../../services/api';
+// import { api, pokeApi } from '../../services/api';
 import { Container } from './styles';
 
 const Form: React.FC<any> = ({ match }) => {
@@ -19,33 +19,33 @@ const Form: React.FC<any> = ({ match }) => {
             description: description,
             stars: stars
         }
+        console.log(dataToPost)
 
-        let apiPost = await api.post('/ratings', dataToPost).catch(() => {
-            console.log('error trying to post in main api. Logging form instead')
-            console.log(dataToPost)
-            return { data: {}, status: Number }
-        })
+        // let apiPost = await api.post('/ratings', dataToPost).catch(() => {
+        //     console.log('error trying to post in main api. Logging form instead')
+        //     console.log(dataToPost)
+        //     return { data: {}, status: Number }
+        // })
 
-        if (apiPost)
-            alert(apiPost.data.message)
+        // if (apiPost)
+        //     alert(apiPost.data.message)
     }
 
 
     useEffect(() => {
-        async function setDataFromApi() {
+        // async function setDataFromApi() {
 
-            let apiPokeList = await pokeApi.get('/', { params: { limit: 1118 } }).catch(() => {
-                return { data: {} }
-            })
+        //     let apiPokeList = await pokeApi.get('/', { params: { limit: 1118 } }).catch(() => {
+        //         return { data: {} }
+        //     })
 
-            setList(apiPokeList.data.results);
-        }
-        setDataFromApi()
+        //     setList(apiPokeList.data.results);
+        // }
+        // setDataFromApi()
     }, []);
 
     return (
         <Container className='container'>
-
             <div className="content">
                 <section>
                     <h1>Enviar Avaliação</h1>
@@ -70,7 +70,7 @@ const Form: React.FC<any> = ({ match }) => {
 
                     <div className="estrelas">
                         <>Avalie o Pokemon: </>
-                        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+                        <input type="radio" id="cm_star-empty" name="fb" value="" checked readOnly />
                         <label htmlFor="cm_star-1"><i className="fa"></i></label>
                         <input type="radio" id="cm_star-1" name="fb" value="1" onChange={(e) => { setStars(Number(e.target.value)) }} />
                         <label htmlFor="cm_star-2"><i className="fa"></i></label>
