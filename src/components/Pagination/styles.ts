@@ -15,7 +15,9 @@ export const Container = styled.div`
         justify-content: center;
     }
 
-    .pagination h2 {
+    .pagination a {
+        text-decoration: none;
+        display: flexbox;
         padding: .5rem 1.5rem;
         border: 2px solid black;
         margin: .5rem;
