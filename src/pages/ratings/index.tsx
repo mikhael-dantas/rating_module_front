@@ -57,7 +57,7 @@ const RatingList: React.FC = () => {
                     return <RatingItem key={rating.id} rating={rating} />;
                 })}
             </main>
-            <Pagination pages={totalPages} callback={setOffsetCallback} currentPage={currentPage}/>
+            {/* <Pagination pages={totalPages} callback={setOffsetCallback} currentPage={currentPage}/> */}
         </Container>
     );
 }
