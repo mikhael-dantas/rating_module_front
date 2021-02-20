@@ -3,7 +3,8 @@ import React from 'react';
 import { Container } from './styles'
 import PokemonListItem from '../../components/PokemonListItem';
 import Pagination from '../../components/Pagination';
-import { pokeApi } from '../../services/api';
+import { MockedPokemons } from '../../Utils/MockedApi';
+import axios from 'axios';
 
 export async function getStaticPaths() {
     return {
@@ -21,18 +22,19 @@ export async function getStaticProps(context: any) {
     const page = context.params.page
     const itensPerPage = 15
 
-    const apiPokeList = await pokeApi.get('/', { params: {offset: page*itensPerPage-itensPerPage, limit: itensPerPage}})
+    // const apiPokeList = await pokeApi.get('/', { params: {offset: page*itensPerPage-itensPerPage, limit: itensPerPage}})
+    const apiPokeList = MockedPokemons
 
-    const pokesWithImages = await Promise.all(apiPokeList.data.results.map(async (pokemon: any) => {
-        const pokemonObject = await pokeApi.get(`/${pokemon.name}`)
+    const pokesWithImages = await Promise.all(apiPokeList.results.map(async (pokemon: any) => {
+        const pokemonObject = await axios.get(`http://localhost:3000/api/pokemons/${pokemon.name}`)
         return {
             name: pokemon.name,
-            stars_avarage: 4,
-            sprites: {front_default: pokemonObject.data.sprites.front_default}
+            stars_avarage: pokemon.stars_avarage,
+            sprites: {front_default: pokemonObject.data.results.image_url}
         }
     }))
 
-    const totalpages = Math.floor(apiPokeList.data.count/itensPerPage) 
+    const totalpages = Math.floor(apiPokeList.count/itensPerPage) 
 
     return {props: {
         page: page,
