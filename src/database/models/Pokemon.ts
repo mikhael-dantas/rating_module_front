@@ -1,5 +1,9 @@
-import mongoose from 'mongoose'
+import mongoose, {Document} from 'mongoose'
 
+interface IPokemon extends Document {
+    name: string,
+    image_url: string,
+}
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const PokemonSchema = new mongoose.Schema({
     name: {
@@ -12,6 +16,4 @@ const PokemonSchema = new mongoose.Schema({
     },
 })
 
-const Pokemon = mongoose.model('Pokemon', PokemonSchema)
-
-export default Pokemon
+export default mongoose.models.Pokemon || mongoose.model<IPokemon>('Pokemon', PokemonSchema)
