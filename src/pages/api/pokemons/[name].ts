@@ -3,7 +3,7 @@ import Pokemon from '../../../database/models/Pokemon'
 
 export default async function handler(req: any, res: any) {
     const {
-        query: { id },
+        query: { name },
         method,
     } = req
 
@@ -12,11 +12,10 @@ export default async function handler(req: any, res: any) {
     switch (method) {
         case 'GET' /* Get a model by its ID */:
         try {
-            const pokemon = await Pokemon.find({name: 'pikachu'})
-            if (!pokemon) {
-            return res.status(400).json({ success: "faaalse" })
-            }
-            res.status(200).json({ success: true, data: pokemon })
+            const pokemon = await Pokemon.findOne({name: name}).catch(() => {
+                return res.status(500).json({message: 'error finding in db'})
+            })
+            res.status(200).json({ success: true, results: pokemon })
         } catch (error) {
             console.log(error)
             res.status(400).json({ success: false })

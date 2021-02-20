@@ -9,10 +9,9 @@ export default async function handler(req: any, res: any) {
   switch (method) {
     case 'GET':
       try {
-        const pokemons = await Pokemon.find({}) /* find all the data in our database */
+        const pokemons = await Pokemon.find({}).limit(10) /* find all the data in our database */
         res.status(200).json({ success: true, data: pokemons })
       } catch (error) {
-        console.log(error)
         res.status(400).json({ success: false })
       }
       break
