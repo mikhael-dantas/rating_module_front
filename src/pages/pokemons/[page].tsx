@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Container from './styles'
 import PokemonListItem from '../../components/PokemonListItem';
@@ -44,12 +44,15 @@ export async function getStaticProps(context: any) {
 }
 
 const Pokemons: React.FC<any> = (props) => {
-    console.log(props.page)
+    const [pokes, setPokes] = useState([])
+    useEffect(() => {
+        setPokes(props.pokes)
+    }, [])
     return (
         <Container className='container'>
             <h1>Lista de pokemons</h1>
             <main>
-                {props.pokes.map((listedPoke: any) => {
+                {pokes.map((listedPoke: any) => {
                     return <PokemonListItem key={listedPoke.name} listedPoke={listedPoke} />;
                 })}
             </main>
