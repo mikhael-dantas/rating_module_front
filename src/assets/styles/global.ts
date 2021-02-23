@@ -48,6 +48,7 @@ export default createGlobalStyle`
     .container {
         /** Altura do rodapé tem que ser igual a isso aqui e vice-versa **/
         padding-bottom: 10vh;
+        margin: 0 auto;
     }
 
     body {

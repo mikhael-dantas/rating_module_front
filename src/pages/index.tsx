@@ -1,6 +1,8 @@
-import { Container } from './styles';
+import React from 'react';
 
 
-export default function Home() {
-  return <Container>My page</Container>
+const Home: React.FC = () => {
+  return <div className='container'>My page</div>;
 }
+
+export default Home;
