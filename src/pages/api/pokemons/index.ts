@@ -9,22 +9,12 @@ export default async function handler(req: any, res: any) {
   switch (method) {
     case 'GET':
       try {
-        const pokemons = await Pokemon.find({}).limit(10) /* find all the data in our database */
+        const pokemons = await Pokemon.find({}).limit(10)
         res.status(200).json({ success: true, data: pokemons })
       } catch (error) {
         res.status(400).json({ success: false })
       }
       break
-    // case 'POST':
-    //   try {
-    //     const pokemon = await Pokemon.create(
-    //       req.body
-    //     ) /* create a new model in the database */
-    //     res.status(201).json({ success: true, data: pokemon })
-    //   } catch (error) {
-    //     res.status(400).json({ success: false })
-    //   }
-    //   break
     default:
       res.status(400).json({ success: false })
       break

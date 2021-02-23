@@ -1,10 +1,29 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 // import { api, pokeApi } from '../../services/api';
 import { Container } from './styles';
 
-const Form: React.FC<any> = ({ match }) => {
-    const [list, setList] = useState<any[]>([]);
-    const [id_origin, setId_origin] = useState<string>('')
+export async function getStaticProps(context: any) {
+    let nextUrl = "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0"
+
+                const listOfPokemons: string[] = []
+                for (let index = 0; index < 8; index++) {
+                    if (!nextUrl) {break}
+                    const pokeapireponse = await axios.get(nextUrl)
+                    nextUrl = pokeapireponse.data.next
+                    const results = pokeapireponse.data.results
+                    results.forEach((pokemonFromResults: any) => {
+                        listOfPokemons.push(pokemonFromResults.name)
+                    })
+                }
+
+    return {props: {
+        listOfPokemons: listOfPokemons
+    }}
+}
+
+const Form: React.FC<any> = (props) => {
+    const [pokemonName, setPokemonName] = useState<string>('')
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [stars, setStars] = useState<number>(0)
@@ -14,7 +33,7 @@ const Form: React.FC<any> = ({ match }) => {
         e.preventDefault()
 
         const dataToPost = {
-            id_origin: id_origin,
+            pokemonName: pokemonName,
             title: title,
             description: description,
             stars: stars
@@ -33,15 +52,6 @@ const Form: React.FC<any> = ({ match }) => {
 
 
     useEffect(() => {
-        // async function setDataFromApi() {
-
-        //     let apiPokeList = await pokeApi.get('/', { params: { limit: 1118 } }).catch(() => {
-        //         return { data: {} }
-        //     })
-
-        //     setList(apiPokeList.data.results);
-        // }
-        // setDataFromApi()
     }, []);
 
     return (
@@ -54,13 +64,13 @@ const Form: React.FC<any> = ({ match }) => {
                 <form className='poke-form' onSubmit={(e) => handleSubmit(e)}>
 
                     <select
-                        placeholder="Selecione o Pokemo"
-                        name="id_origin"
-                        value={id_origin}
-                        onChange={(e) => { setId_origin(e.target.value) }}
+                        placeholder="Selecione o Pokemon"
+                        name="pokemonName"
+                        value={pokemonName}
+                        onChange={(e) => { setPokemonName(e.target.value) }}
                     >
-                        {list.map(poke => (
-                            <option key={poke.name} value={poke.name}>{poke.name}</option>
+                        {props.listOfPokemons.map((poke: any) => (
+                            <option key={poke} value={poke}>{poke}</option>
                         ))}
                     </select>
 
