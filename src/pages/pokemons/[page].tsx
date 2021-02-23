@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from './styles'
+import Container from './styles'
 import PokemonListItem from '../../components/PokemonListItem';
 import Pagination from '../../components/Pagination';
 import { MockedPokemons } from '../../Utils/MockedApi';

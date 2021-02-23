@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 // import { api, pokeApi } from '../../services/api';
-import { Container } from './styles';
+import Container from './styles';
 
 export async function getStaticProps(context: any) {
     let nextUrl = "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container } from './styles'
+import Container from './styles'
 import RatingItem, {Rating} from '../../components/RatingItem';
 import Pagination from '../../components/Pagination';
 import { MockedRatings } from '../../Utils/MockedApi';
