@@ -6,17 +6,17 @@ import Pagination from '../../components/Pagination';
 import { MockedPokemons } from '../../Utils/MockedApi';
 import axios from 'axios';
 
-export async function getStaticPaths() {
-    return {
-        paths: [
-        { params: { page: '1'} },
-        { params: { page: '2'} },
-        { params: { page: '3'} },
-        { params: { page: '4'} },
-        ],
-        fallback: true
-    };
-}
+// export async function getStaticPaths() {
+//     return {
+//         paths: [
+//         { params: { page: '1'} },
+//         { params: { page: '2'} },
+//         { params: { page: '3'} },
+//         { params: { page: '4'} },
+//         ],
+//         fallback: true
+//     };
+// }
 
 export async function getStaticProps(context: any) {
     const page = context.params.page
