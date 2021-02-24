@@ -5,18 +5,20 @@ import PokemonListItem from '../../components/PokemonListItem';
 import Pagination from '../../components/Pagination';
 import { MockedPokemons } from '../../Utils/MockedApi';
 import axios from 'axios';
+import dbConnect from '../../database/DbConection'
+import Pokemon from '../../database/models/Pokemon'
 
-// export async function getStaticPaths() {
-//     return {
-//         paths: [
-//         { params: { page: '1'} },
-//         { params: { page: '2'} },
-//         { params: { page: '3'} },
-//         { params: { page: '4'} },
-//         ],
-//         fallback: true
-//     };
-// }
+export async function getStaticPaths() {
+    return {
+        paths: [
+        { params: { page: '1'} },
+        { params: { page: '2'} },
+        { params: { page: '3'} },
+        { params: { page: '4'} },
+        ],
+        fallback: true
+    };
+}
 
 export async function getStaticProps(context: any) {
     const page = context.params.page
@@ -25,12 +27,28 @@ export async function getStaticProps(context: any) {
     // const apiPokeList = await pokeApi.get('/', { params: {offset: page*itensPerPage-itensPerPage, limit: itensPerPage}})
     const apiPokeList = MockedPokemons
 
+    async function handler(name: string) {
+    
+        await dbConnect()
+    
+        try {
+            const pokemon = await Pokemon.findOne({name: name})
+            if (!pokemon) {
+                return {message: 'pokemon not found'}
+            }
+            return { success: true, results: pokemon }
+        } catch (error) {
+            console.log(error)
+            { success: false }
+        }
+    }
+
     const pokesWithImages = await Promise.all(apiPokeList.results.map(async (pokemon: any) => {
-        const pokemonObject = await axios.get(`http://localhost:3000/api/pokemons/${pokemon.name}`)
+        const pokemonObject = await handler(pokemon.name)
         return {
             name: pokemon.name,
             stars_avarage: pokemon.stars_avarage,
-            sprites: {front_default: pokemonObject.data.results.image_url}
+            sprites: {front_default: pokemonObject.results.image_url}
         }
     }))
 
