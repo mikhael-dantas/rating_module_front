@@ -1,79 +1,61 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 
 import Container from './styles'
-// import PokemonListItem from '../../components/PokemonListItem';
-// import Pagination from '../../components/Pagination';
-// import { MockedPokemons } from '../../Utils/MockedApi';
-// import dbConnect from '../../database/DbConection'
-// import Pokemon from '../../database/models/Pokemon'
+import PokemonListItem from '../../components/PokemonListItem';
+import Pagination from '../../components/Pagination';
+import { MockedPokemons } from '../../Utils/MockedApi';
+// import axios from 'axios';
 
-// export async function getStaticPaths() {
-//     return {
-//         paths: [
-//         { params: { page: '1'} },
-//         { params: { page: '2'} },
-//         { params: { page: '3'} },
-//         { params: { page: '4'} },
-//         ],
-//         fallback: true
-//     };
-// }
+const Pokemons: React.FC<any> = () => {
+    const router = useRouter()
+    const originPage = router.query.page
 
-// export async function getStaticProps(context: any) {
-//     const page = context.params.page
-//     const itensPerPage = 15
+    function checkPage() {
+        let bool = false
+        if (typeof originPage === "string") {
+            bool = Number.isNaN(parseInt(originPage)) ? false : true
+        }
+        return bool
+    }
 
-//     // const apiPokeList = await pokeApi.get('/', { params: {offset: page*itensPerPage-itensPerPage, limit: itensPerPage}})
-//     const apiPokeList = MockedPokemons
+    const page = checkPage() ? Number(originPage) : 1 
+    const itensPerPage = 15
 
-//     async function handler(name: string) {
+    const [pokes, setPokes] = useState([])
+    const [totalPages, setTotalPages] = useState(0)
+
     
-//         await dbConnect()
-    
-//         try {
-//             const pokemon = await Pokemon.findOne({name: name})
-//             if (!pokemon) {
-//                 return {message: 'pokemon not found'}
-//             }
-//             return { success: true, results: pokemon }
-//         } catch (error) {
-//             console.log(error)
-//             { success: false }
-//         }
-//     }
+    useEffect(() => {
+        async function requestPokemonInfos() {
+            // const apiPokeList = await pokeApi.get('/', { params: {offset: page*itensPerPage-itensPerPage, limit: itensPerPage}})
+            const apiPokeList = MockedPokemons
+            const pokesWithImages = await Promise.all(apiPokeList.results.map(async (pokemon: any) => {
+                // const returnedPokemon = await axios.get((pokemon.name)
+                return {
+                    name: pokemon.name,
+                    stars_avarage: pokemon.stars_avarage,
+                    sprites: {front_default: "returnedPokemon.results.image_url"}
+                }
+            }))
+        
+            const calcPages = Math.ceil(apiPokeList.count/itensPerPage) 
+        
+            setPokes(pokesWithImages)
+            setTotalPages(calcPages)
+        }
+        requestPokemonInfos()
+    }, [])
 
-//     const pokesWithImages = await Promise.all(apiPokeList.results.map(async (pokemon: any) => {
-//         const pokemonObject = await handler(pokemon.name)
-//         return {
-//             name: pokemon.name,
-//             stars_avarage: pokemon.stars_avarage,
-//             sprites: {front_default: pokemonObject.results.image_url}
-//         }
-//     }))
-
-//     const totalpages = Math.floor(apiPokeList.count/itensPerPage) 
-
-//     return {props: {
-//         page: page,
-//         pokes: pokesWithImages,
-//         totalpages: totalpages
-//     }}
-// }
-
-const Pokemons: React.FC<any> = (props) => {
-    // const [pokes, setPokes] = useState([])
-    // useEffect(() => {
-    //     setPokes(props.pokes)
-    // }, [])
     return (
         <Container className='container'>
             <h1>Lista de pokemons</h1>
-            {/* <main>
+            <main>
                 {pokes.map((listedPoke: any) => {
                     return <PokemonListItem key={listedPoke.name} listedPoke={listedPoke} />;
                 })}
             </main>
-            <Pagination pages={props.totalpages} resource='/pokemons/' currentPage={props.page}/> */}
+            <Pagination pages={totalPages} resource='/pokemons/' currentPage={page}/>
         </Container>
     );
 }
