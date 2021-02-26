@@ -4,8 +4,6 @@ import Pokemon from '../../../database/models/Pokemon'
 export default async function handler(req: any, res: any) {
     const { name } = req.query
 
-    const key = process.env.MONGODB_URI
-    return res.status(200).json(key.slice(1, 5))
     await dbConnect()
     
     try {
